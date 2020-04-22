@@ -1,0 +1,98 @@
+Login
+--------------------------------------------
+url = http://localhost/hidroponia/consulta/login.php
+metodo = POST
+-------------------------------------------
+Parametros a enviar en formato json
+{
+	"user":"rportillo",
+	"pass":"12345678"
+}
+
+Respuestas
+-------------------------------------------
+Status 200 Ok
+{
+    "code": "1",
+    "message": true,
+    "data": {
+        "USER": {
+            "USER_CODI": 1,
+            "USER_DESC": "RODRIGO PORTILLO"
+        },
+        "INVE": [
+            {
+                "INVE_CODI": 2,
+                "INVE_DESC": "Inv.Emboscada"
+            },
+            {
+                "INVE_CODI": 2,
+                "INVE_DESC": "Inv.Emboscada"
+            },
+            {
+                "INVE_CODI": 2,
+                "INVE_DESC": "Inv.Emboscada"
+            },
+            {
+                "INVE_CODI": 3,
+                "INVE_DESC": "Inv.Paraguari"
+            },
+            {
+                "INVE_CODI": 4,
+                "INVE_DESC": "Inv.Chaco"
+            },
+            {
+                "INVE_CODI": 5,
+                "INVE_DESC": "Inv.Nueva Italia"
+            },
+            {
+                "INVE_CODI": 5,
+                "INVE_DESC": "Inv.Nueva Italia"
+            },
+            {
+                "INVE_CODI": 5,
+                "INVE_DESC": "Inv.Nueva Italia"
+            }
+        ],
+        "MODU": [
+            {
+                "MODU_CODI": 1,
+                "MODU_DESC": "AGUA"
+            },
+            {
+                "MODU_CODI": 2,
+                "MODU_DESC": "CLIMA"
+            },
+            {
+                "MODU_CODI": 3,
+                "MODU_DESC": "INFORMACIÓN"
+            },
+            {
+                "MODU_CODI": 1,
+                "MODU_DESC": "AGUA"
+            },
+            {
+                "MODU_CODI": 2,
+                "MODU_DESC": "CLIMA"
+            },
+            {
+                "MODU_CODI": 1,
+                "MODU_DESC": "AGUA"
+            },
+            {
+                "MODU_CODI": 2,
+                "MODU_DESC": "CLIMA"
+            },
+            {
+                "MODU_CODI": 3,
+                "MODU_DESC": "INFORMACIÓN"
+            }
+        ]
+    }
+}
+-----------------------------------------------------
+Status 400 Bad Request
+{
+    "code": "2",
+    "message": "Datos incorrectos"
+}
