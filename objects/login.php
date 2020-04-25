@@ -59,11 +59,6 @@ class Login
                             array_push($this->inve, array(
                                 "INVE_CODI" => $in[2],
                                 "INVE_DESC" => utf8_encode($in[3]),
-                            ));
-                        }
-
-                        foreach ($this->row as $in) {
-                            array_push($this->modu, array(
                                 "MODU_CODI" => $in[4],
                                 "MODU_DESC" => utf8_encode($in[5]),
                             ));
@@ -74,7 +69,8 @@ class Login
                 if ($this->res = $this->conn->query($sql1)) {
                     $this->fila = $this->res->fetch_assoc();
                 }
-                $info = array("USER" => $this->user_row, "INVE" => $this->inve, "MODU" => $this->modu);
+                $format = $this->groupArray($this->inve, 'INVE_CODI');
+                $info = array("USER" => $this->user_row, "INVE" => $format);
                 $data = array(0 => $this->fila['CODI'], 1 => $this->fila['RESP'], 2 => $info);
                 return $data;
             }
@@ -83,5 +79,34 @@ class Login
             return $data;
             exit;
         }
+    }
+
+    function groupArray($array, $groupkey)
+    {
+        if (count($array) > 0) {
+            $keys = array_keys($array[0]);
+            $removekey = array_search($groupkey, $keys);
+            if ($removekey === false)
+                return array("Clave \"$groupkey\" no existe");
+            else
+                unset($keys[$removekey]);
+            $groupcriteria = array();
+            $return = array();
+            foreach ($array as $value) {
+                $item = null;
+                foreach ($keys as $key) {
+                    $item[$key] = $value[$key];
+                }
+                $busca = array_search($value[$groupkey], $groupcriteria);
+                if ($busca === false) {
+                    $groupcriteria[] = $value[$groupkey];
+                    $return[] = array($groupkey => $value[$groupkey], 'grupo' => array());
+                    $busca = count($return) - 1;
+                }
+                $return[$busca]['grupo'][] = $item;
+            }
+            return $return;
+        } else
+            return array();
     }
 }
