@@ -23,69 +23,63 @@ Status 200 Ok
         "INVE": [
             {
                 "INVE_CODI": 2,
-                "INVE_DESC": "Inv.Emboscada"
-            },
-            {
-                "INVE_CODI": 2,
-                "INVE_DESC": "Inv.Emboscada"
-            },
-            {
-                "INVE_CODI": 2,
-                "INVE_DESC": "Inv.Emboscada"
+                "grupo": [
+                    {
+                        "INVE_DESC": "Inv.Emboscada",
+                        "MODU_CODI": 1,
+                        "MODU_DESC": "AGUA"
+                    },
+                    {
+                        "INVE_DESC": "Inv.Emboscada",
+                        "MODU_CODI": 2,
+                        "MODU_DESC": "CLIMA"
+                    },
+                    {
+                        "INVE_DESC": "Inv.Emboscada",
+                        "MODU_CODI": 3,
+                        "MODU_DESC": "INFORMACIÓN"
+                    }
+                ]
             },
             {
                 "INVE_CODI": 3,
-                "INVE_DESC": "Inv.Paraguari"
+                "grupo": [
+                    {
+                        "INVE_DESC": "Inv.Paraguari",
+                        "MODU_CODI": 1,
+                        "MODU_DESC": "AGUA"
+                    }
+                ]
             },
             {
                 "INVE_CODI": 4,
-                "INVE_DESC": "Inv.Chaco"
+                "grupo": [
+                    {
+                        "INVE_DESC": "Inv.Chaco",
+                        "MODU_CODI": 2,
+                        "MODU_DESC": "CLIMA"
+                    }
+                ]
             },
             {
                 "INVE_CODI": 5,
-                "INVE_DESC": "Inv.Nueva Italia"
-            },
-            {
-                "INVE_CODI": 5,
-                "INVE_DESC": "Inv.Nueva Italia"
-            },
-            {
-                "INVE_CODI": 5,
-                "INVE_DESC": "Inv.Nueva Italia"
-            }
-        ],
-        "MODU": [
-            {
-                "MODU_CODI": 1,
-                "MODU_DESC": "AGUA"
-            },
-            {
-                "MODU_CODI": 2,
-                "MODU_DESC": "CLIMA"
-            },
-            {
-                "MODU_CODI": 3,
-                "MODU_DESC": "INFORMACIÓN"
-            },
-            {
-                "MODU_CODI": 1,
-                "MODU_DESC": "AGUA"
-            },
-            {
-                "MODU_CODI": 2,
-                "MODU_DESC": "CLIMA"
-            },
-            {
-                "MODU_CODI": 1,
-                "MODU_DESC": "AGUA"
-            },
-            {
-                "MODU_CODI": 2,
-                "MODU_DESC": "CLIMA"
-            },
-            {
-                "MODU_CODI": 3,
-                "MODU_DESC": "INFORMACIÓN"
+                "grupo": [
+                    {
+                        "INVE_DESC": "Inv.Nueva Italia",
+                        "MODU_CODI": 1,
+                        "MODU_DESC": "AGUA"
+                    },
+                    {
+                        "INVE_DESC": "Inv.Nueva Italia",
+                        "MODU_CODI": 2,
+                        "MODU_DESC": "CLIMA"
+                    },
+                    {
+                        "INVE_DESC": "Inv.Nueva Italia",
+                        "MODU_CODI": 3,
+                        "MODU_DESC": "INFORMACIÓN"
+                    }
+                ]
             }
         ]
     }
@@ -95,4 +89,69 @@ Status 400 Bad Request
 {
     "code": "2",
     "message": "Datos incorrectos"
+}
+
+
+
+-----------------------------------------------------
+Dashboard
+--------------------------------------------
+url = http://localhost/hidroponia/consulta/lectu_actual.php
+metodo = POST
+-------------------------------------------
+Parametros a enviar en formato json
+{
+	"inve_codi":"2",
+}
+Respuestas
+-------------------------------------------
+Status 200 Ok
+{
+    "code": "1",
+    "message": true,
+    "data": {
+        "AGUA": [
+            {
+                "MODU_CODI": 1,
+                "MODU_DESC": "AGUA",
+                "TIPO_CODI": 1,
+                "TIPO_DESC": "Temperatura",
+                "EQUI_CODI": 1,
+                "EQUI_MODEL": "ds18b20",
+                "EQUI_UBIC": "Tanque",
+                "DETA_VALUE_LEID": 19.5,
+                "MEDI_DESC": "Grados Celcius",
+                "MEDI_DESC_ABRE": "°C",
+                "DETA_DATE_LEID": "2020-04-23 21:07:48"
+            }
+        ],
+        "CLIMA": [
+            {
+                "MODU_CODI": 2,
+                "MODU_DESC": "CLIMA",
+                "TIPO_CODI": 2,
+                "TIPO_DESC": "Temperatura",
+                "EQUI_CODI": 2,
+                "EQUI_MODEL": "DHT11",
+                "EQUI_UBIC": "Esq.Norte",
+                "DETA_VALUE_LEID": 29.5,
+                "MEDI_DESC": "Grados Celcius",
+                "MEDI_DESC_ABRE": "°C",
+                "DETA_DATE_LEID": "2020-04-23 21:08:00"
+            },
+            {
+                "MODU_CODI": 2,
+                "MODU_DESC": "CLIMA",
+                "TIPO_CODI": 3,
+                "TIPO_DESC": "Gas",
+                "EQUI_CODI": 3,
+                "EQUI_MODEL": "MQ135",
+                "EQUI_UBIC": "Centro",
+                "DETA_VALUE_LEID": 4.7,
+                "MEDI_DESC": "Parte por millon",
+                "MEDI_DESC_ABRE": "PPM",
+                "DETA_DATE_LEID": "2020-04-23 22:07:42"
+            }
+        ]
+    }
 }
