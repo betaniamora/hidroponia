@@ -23,7 +23,7 @@ class Login
     private $rows = array();
     private $user_row = array();
     private $inve = array();
-    private $modu = array();
+
 
     public function __construct(&$db)
     {
@@ -46,6 +46,8 @@ class Login
         try {
             if (!mysqli_stmt_execute($stmt)) {
                 $data = array(0 => -999, 1 => utf8_encode($stmt->error));
+                return $data;
+                exit;
             } else {
                 do {
                     if ($this->res = $stmt->get_result()) {
