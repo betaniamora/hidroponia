@@ -71,7 +71,7 @@ class Login
                 if ($this->res = $this->conn->query($sql1)) {
                     $this->fila = $this->res->fetch_assoc();
                 }
-                $format = $this->groupArray($this->inve, 'INVE_CODI');
+                $format = $this->groupArray($this->inve, 'INVE_CODI', 'INVE_DESC');
                 $info = array("USER" => $this->user_row, "INVE" => $format);
                 $data = array(0 => $this->fila['CODI'], 1 => $this->fila['RESP'], 2 => $info);
                 return $data;
@@ -83,8 +83,9 @@ class Login
         }
     }
 
-    function groupArray($array, $groupkey)
+    function groupArray($array, $groupkey, $groupDesc)
     {
+        $i = 0;
         if (count($array) > 0) {
             $keys = array_keys($array[0]);
             $removekey = array_search($groupkey, $keys);
@@ -97,15 +98,19 @@ class Login
             foreach ($array as $value) {
                 $item = null;
                 foreach ($keys as $key) {
+                    $z = count($key);
                     $item[$key] = $value[$key];
                 }
                 $busca = array_search($value[$groupkey], $groupcriteria);
                 if ($busca === false) {
                     $groupcriteria[] = $value[$groupkey];
-                    $return[] = array($groupkey => $value[$groupkey], 'grupo' => array());
+                    $return[] = array($groupkey => $value[$groupkey], $groupDesc => $value[$groupDesc], 'MODULO' => array());
                     $busca = count($return) - 1;
+                    $i = 0;
                 }
-                $return[$busca]['grupo'][] = $item;
+                $return[$busca]['MODULO'][] = $item;
+                unset($return[$busca]['MODULO'][$i][$groupDesc]);
+                $i++;
             }
             return $return;
         } else
