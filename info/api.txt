@@ -155,3 +155,26 @@ Status 200 Ok
         ]
     }
 }
+-----------------------------------------------------
+Cosecha
+--------------------------------------------
+url = http://localhost/hidroponia/consulta/cosecha.php
+metodo = POST
+-------------------------------------------
+Parametros a enviar en formato json
+{
+	"hidro_codi": "",
+    "even":"I",
+    "esta":"A",
+    "obse":"Segunda cosecha",
+    "fech_inic":"05/06/2020",
+    "user":"rportillo",
+    "conf_plan": 2
+}
+Respuestas
+-------------------------------------------
+Status 200 Ok
+{
+    "code": "1",
+    "message": "Dato insertado"
+}
