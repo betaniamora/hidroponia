@@ -33,12 +33,22 @@ class Cosecha
 
     public function POST()
     {
-        $sql = "CALL PA_ABM_PLANT(?,?,?,?,?,?, @CODI_RESP, @DESC_RESP);";
+        $sql = "CALL PA_ABM_PLANT(?,?,?,?,?,?,?, @CODI_RESP, @DESC_RESP);";
         $sql1 = "SELECT @CODI_RESP CODI, @DESC_RESP RESP;";
         $stmt = $this->conn->prepare($sql);
 
         //  Bind the input parameter
-        mysqli_stmt_bind_param($stmt, 'ssssss', $this->even, $this->esta, $this->obse, $this->fech_inic, $this->user, $this->conf_plan);
+        mysqli_stmt_bind_param(
+            $stmt,
+            'ssssssi',
+            $this->even,
+            $this->esta,
+            $this->obse,
+            $this->fech_inic,
+            $this->user,
+            $this->conf_plan,
+            $this->hidro_codi
+        );
 
         $this->even = htmlspecialchars(strip_tags($this->even));
         $this->esta = htmlspecialchars(strip_tags($this->esta));
@@ -46,6 +56,7 @@ class Cosecha
         $this->fech_inic = htmlspecialchars(strip_tags($this->fech_inic));
         $this->user = htmlspecialchars(strip_tags($this->user));
         $this->conf_plan = htmlspecialchars(strip_tags($this->conf_plan));
+        $this->hidro_codi = htmlspecialchars(strip_tags($this->hidro_codi));
 
         try {
             if (!mysqli_stmt_execute($stmt)) {

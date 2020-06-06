@@ -162,14 +162,22 @@ url = http://localhost/hidroponia/consulta/cosecha.php
 metodo = POST
 -------------------------------------------
 Parametros a enviar en formato json
+--PARA INSERCION
 {
-	"hidro_codi": "",
-    "even":"I",
-    "esta":"A",
-    "obse":"Segunda cosecha",
-    "fech_inic":"05/06/2020",
+	"even":"I",
+    "esta":"S",
+    "obse":"Plantacion de lechuga mantecada",
+    "fech_inic":"08-06-2020",
     "user":"rportillo",
     "conf_plan": 2
+}
+--PARA MODIFICACION
+{
+	"hidro_codi": 17,
+    "even":"U",
+    "esta":"C",
+    "obse":"Segunda cosecha modificada",
+    "user":"rportillo"
 }
 Respuestas
 -------------------------------------------

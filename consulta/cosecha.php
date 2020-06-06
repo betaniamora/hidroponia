@@ -26,46 +26,51 @@ $data = json_decode(file_get_contents("php://input"));
 
 // make sure data is not empty
 if (
-    !empty($data->even) and
+    !empty($data->even) and $data->even != 'I' and
     !empty($data->esta) and
     !empty($data->obse) and
     !empty($data->fech_inic) and
     !empty($data->user) and
     !empty($data->conf_plan)
 ) {
-    if ($data->even != 'I' and empty($data->hidro_codi)) {
-        http_response_code(400);
-        echo json_encode(array("code" => "-999", "message" => "Para modificar debe insertar el id del registro"));
+    http_response_code(400);
+    echo json_encode(array("code" => "-999", "message" => "Datos incompletos."));
+    exit;
+}
+if (
+    $data->even != 'U' and
+    (!empty($data->hidro_codi) and $data->hidro_codi == '') and
+    !empty($data->esta) and
+    !empty($data->obse) and
+    !empty($data->user)
+) {
+    http_response_code(400);
+    echo json_encode(array("code" => "-999", "message" => "Para modificar debe insertar el id del registro"));
+    exit;
+}
+// set user property values
+$cosecha->even = !empty($data->even) ? $data->even : NULL;
+$cosecha->esta = !empty($data->esta) ? $data->esta : NULL;
+$cosecha->obse = !empty($data->obse) ? $data->obse : NULL;
+$cosecha->fech_inic = !empty($data->fech_inic) ? $data->fech_inic : NULL;
+$cosecha->user = $data->user;
+$cosecha->conf_plan = !empty($data->conf_plan) ? $data->conf_plan : NULL;
+$cosecha->hidro_codi = !empty($data->hidro_codi) ? $data->hidro_codi : NULL;
+
+$data = $cosecha->POST();
+
+if (!empty($data)) {
+    if ($data[0] == 1) {
+        http_response_code(200);
+        echo json_encode(array("code" => $data[0], "message" => $data[1]));
         exit;
-    }
-    // set user property values
-    $cosecha->even = $data->even;
-    $cosecha->esta = $data->esta;
-    $cosecha->obse = $data->obse;
-    $cosecha->fech_inic = $data->fech_inic;
-    $cosecha->user = $data->user;
-    $cosecha->conf_plan = $data->conf_plan;
-    $cosecha->hidro_codi = $data->hidro_codi;
-
-    $data = $cosecha->POST();
-
-    if (!empty($data)) {
-        if ($data[0] == 1) {
-            http_response_code(200);
-            echo json_encode(array("code" => $data[0], "message" => $data[1]));
-            exit;
-        } else {
-            http_response_code(400);
-            echo json_encode(array("code" => $data[0], "message" => $data[1]));
-            exit;
-        }
     } else {
         http_response_code(400);
-        echo json_encode(array("code" => "-999", "message" => "Error al consultar datos."));
+        echo json_encode(array("code" => $data[0], "message" => $data[1]));
         exit;
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("code" => "-999", "message" => "Datos incompletos."));
+    echo json_encode(array("code" => "-999", "message" => "Error al consultar datos."));
     exit;
 }
