@@ -98,7 +98,7 @@ class Login
             foreach ($array as $value) {
                 $item = null;
                 foreach ($keys as $key) {
-                    $z = count($key);
+                    //$z = count($key);
                     $item[$key] = $value[$key];
                 }
                 $busca = array_search($value[$groupkey], $groupcriteria);
