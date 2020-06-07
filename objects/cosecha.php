@@ -10,13 +10,15 @@ class Cosecha
     //variable de conexion DB
     private $conn;
     //variables a usar
-    public $hidro_codi;
     public $even;
     public $esta;
     public $obse;
+    public $cant;
     public $fech_inic;
     public $user;
     public $conf_plan;
+    public $plant_codi;
+    public $inve_codi;
 
     public $data;
     public $codResp;
@@ -33,30 +35,34 @@ class Cosecha
 
     public function POST()
     {
-        $sql = "CALL PA_ABM_PLANT(?,?,?,?,?,?,?, @CODI_RESP, @DESC_RESP);";
+        $sql = "CALL PA_ABM_PLANT(?,?,?,?,?,?,?,?,?, @CODI_RESP, @DESC_RESP);";
         $sql1 = "SELECT @CODI_RESP CODI, @DESC_RESP RESP;";
         $stmt = $this->conn->prepare($sql);
 
         //  Bind the input parameter
         mysqli_stmt_bind_param(
             $stmt,
-            'ssssssi',
+            'sssissiii',
             $this->even,
             $this->esta,
             $this->obse,
+            $this->cant,
             $this->fech_inic,
             $this->user,
             $this->conf_plan,
-            $this->hidro_codi
+            $this->plant_codi,
+            $this->inve_codi
         );
 
         $this->even = htmlspecialchars(strip_tags($this->even));
         $this->esta = htmlspecialchars(strip_tags($this->esta));
         $this->obse = htmlspecialchars(strip_tags($this->obse));
+        $this->cant = htmlspecialchars(strip_tags($this->cant));
         $this->fech_inic = htmlspecialchars(strip_tags($this->fech_inic));
         $this->user = htmlspecialchars(strip_tags($this->user));
         $this->conf_plan = htmlspecialchars(strip_tags($this->conf_plan));
-        $this->hidro_codi = htmlspecialchars(strip_tags($this->hidro_codi));
+        $this->plant_codi = htmlspecialchars(strip_tags($this->plant_codi));
+        $this->inve_codi = htmlspecialchars(strip_tags($this->inve_codi));
 
         try {
             if (!mysqli_stmt_execute($stmt)) {

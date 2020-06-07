@@ -29,9 +29,11 @@ if (
     !empty($data->even) and $data->even != 'I' and
     !empty($data->esta) and
     !empty($data->obse) and
+    !empty($data->cant) and
     !empty($data->fech_inic) and
     !empty($data->user) and
-    !empty($data->conf_plan)
+    !empty($data->conf_plan) and
+    !empty($data->inve_codi)
 ) {
     http_response_code(400);
     echo json_encode(array("code" => "-999", "message" => "Datos incompletos."));
@@ -39,10 +41,12 @@ if (
 }
 if (
     $data->even != 'U' and
-    (!empty($data->hidro_codi) and $data->hidro_codi == '') and
+    (!empty($data->plant_codi) and $data->plant_codi == '') and
     !empty($data->esta) and
     !empty($data->obse) and
-    !empty($data->user)
+    !empty($data->cant) and
+    !empty($data->user) and
+    !empty($data->inve_codi)
 ) {
     http_response_code(400);
     echo json_encode(array("code" => "-999", "message" => "Para modificar debe insertar el id del registro"));
@@ -52,10 +56,12 @@ if (
 $cosecha->even = !empty($data->even) ? $data->even : NULL;
 $cosecha->esta = !empty($data->esta) ? $data->esta : NULL;
 $cosecha->obse = !empty($data->obse) ? $data->obse : NULL;
+$cosecha->cant = !empty($data->cant) ? $data->cant : NULL;
 $cosecha->fech_inic = !empty($data->fech_inic) ? $data->fech_inic : NULL;
 $cosecha->user = $data->user;
 $cosecha->conf_plan = !empty($data->conf_plan) ? $data->conf_plan : NULL;
-$cosecha->hidro_codi = !empty($data->hidro_codi) ? $data->hidro_codi : NULL;
+$cosecha->plant_codi = !empty($data->plant_codi) ? $data->plant_codi : NULL;
+$cosecha->inve_codi = !empty($data->inve_codi) ? $data->inve_codi : NULL;
 
 $data = $cosecha->POST();
 

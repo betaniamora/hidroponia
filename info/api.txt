@@ -167,17 +167,21 @@ Parametros a enviar en formato json
 	"even":"I",
     "esta":"S",
     "obse":"Plantacion de lechuga mantecada",
+    "cant":200,
     "fech_inic":"08-06-2020",
     "user":"rportillo",
-    "conf_plan": 2
+    "conf_plan": 2,
+    "inve_codi": 2
 }
 --PARA MODIFICACION
 {
-	"hidro_codi": 17,
+	"plant_codi": 5,
     "even":"U",
-    "esta":"C",
+    "esta":"P",
     "obse":"Segunda cosecha modificada",
-    "user":"rportillo"
+    "cant":200,
+    "user":"rportillo",
+    "inve_codi": 2
 }
 Respuestas
 -------------------------------------------
